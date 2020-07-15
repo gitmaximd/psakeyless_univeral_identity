@@ -17,13 +17,13 @@ $token_file      = "$HOME/.vault-token"
 
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
 
-$headers = @{
-    cmd = 'configure'
-    'access-id' = $AccessID
+$body = @{
+    cmd          = 'configure'
+    'access-id'  = $AccessID
     'access-key' = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($AccessKey))
 }
 
-$token = (Invoke-RestMethod -Method Post -Uri $proxy_url -Body $headers -ContentType 'application/x-www-form-urlencoded').token
+$token = (Invoke-RestMethod -Method Post -Uri $proxy_url -Body $body -ContentType 'application/x-www-form-urlencoded').token
 $headers.Clear()
 Write-Host "Starter token received [$token]"
 
