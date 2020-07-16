@@ -24,7 +24,7 @@ $body = @{
 }
 
 $token = (Invoke-RestMethod -Method Post -Uri $proxy_url -Body $body -ContentType 'application/x-www-form-urlencoded').token
-$headers.Clear()
+$body.Clear()
 Write-Host "Starter token received [$token]"
 
 if([string]::IsNullOrEmpty($token)) {
@@ -40,7 +40,7 @@ if([string]::IsNullOrEmpty($token)) {
     }
     catch {
         schtasks /create /sc MINUTE /tn $sched_task_name /tr $task_to_run /ru "SYSTEM" /mo 1 # TODO: Replace with PS native
-    }   
+    }
     Write-Host "AKEYLESS Universal Identity successfully initiated"
 }
 
